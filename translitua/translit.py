@@ -801,6 +801,49 @@ class UkrainianPassport2004Alt(object):
                           u'|'.join(FIRST_CHARACTERS.keys()) + u")")
 
 
+class UkrainianLatin(object):
+    """
+    Taken from https://nachasi.com/ul/manifest/
+    """
+    _MAIN_TRANSLIT_TABLE = {
+        u"а": u"a",
+        u"б": u"b",
+        u"в": u"v",
+        u"г": u"g",
+        u"ґ": u"ğ",
+        u"д": u"d",
+        u"е": u"e",
+        u"є": u"je",
+        u"ж": u"ž",
+        u"з": u"z",
+        u"и": u"y",
+        u"і": u"i",
+        u"ї": u"ї",
+        u"й": u"j",
+        u"к": u"k",
+        u"л": u"l",
+        u"м": u"m",
+        u"н": u"n",
+        u"о": u"o",
+        u"п": u"p",
+        u"р": u"r",
+        u"с": u"s",
+        u"т": u"t",
+        u"у": u"u",
+        u"ф": u"f",
+        u"х": u"h",
+        u"ц": u"c",
+        u"ч": u"č",
+        u"ш": u"š",
+        u"щ": u"šč",
+        u"ь": u"'",
+        u"ю": u"ju",
+        u"я": u"ja",
+    }
+
+    MAIN_TRANSLIT_TABLE = convert_table(add_uppercase(_MAIN_TRANSLIT_TABLE))
+
+
 class RussianICAO(object):
     """
     According to https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D0%BB%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F_%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%D0%B0%D0%BB%D1%84%D0%B0%D0%B2%D0%B8%D1%82%D0%B0_%D0%BB%D0%B0%D1%82%D0%B8%D0%BD%D0%B8%D1%86%D0%B5%D0%B9#.D0.A1.D1.80.D0.B0.D0.B2.D0.BD.D0.B8.D1.82.D0.B5.D0.BB.D1.8C.D0.BD.D0.B0.D1.8F_.D1.82.D0.B0.D0.B1.D0.BB.D0.B8.D1.86.D0.B0_.D1.81.D0.B8.D1.81.D1.82.D0.B5.D0.BC_.D1.82.D1.80.D0.B0.D0.BD.D1.81.D0.BB.D0.B8.D1.82.D0.B5.D1.80.D0.B0.D1.86.D0.B8.D0.B8
@@ -1023,11 +1066,12 @@ class RussianDriverLicense(object):
     PATTERN2 = re.compile(u"(?mu)" + r"\b(" +
                           u'|'.join(FIRST_CHARACTERS.keys()) + u")")
 
+
 ALL_UKRAINIAN = [
     UkrainianKMU, UkrainianSimple, UkrainianWWS, UkrainianBritish,
     UkrainianBGN, UkrainianISO9, UkrainianFrench, UkrainianGerman,
     UkrainianGOST1971, UkrainianGOST1986, UkrainianPassport2007,
-    UkrainianNational1996, UkrainianPassport2004Alt
+    UkrainianNational1996, UkrainianPassport2004Alt, UkrainianLatin
 ]
 
 ALL_RUSSIAN = [
@@ -1118,6 +1162,9 @@ def translit(src, table=UkrainianKMU):
     Shcheki
     >>> print(translit(u"Соловьи", RussianDriverLicense))
     Solov'yi
+
+    >>> print(translit(u'Міграції-цивілізаційний вибір,нічого', UkranianLatin))
+    Migraciї-cyvilizacijnyj vybir,ničogo
     """
 
     src = text_type(src)
@@ -1142,7 +1189,8 @@ __all__ = [
     "ALL_UKRAINIAN", "UkrainianBritish", "UkrainianBGN", "UkrainianISO9",
     "UkrainianFrench", "UkrainianGerman", "UkrainianGOST1971",
     "UkrainianGOST1986", "UkrainianPassport2007", "UkrainianNational1996",
-    "UkrainianPassport2004Alt", "RussianICAO", "ALL_TRANSLITERATIONS",
+    "UkrainianPassport2004Alt", "UkrainianLatin",
+    "RussianICAO", "ALL_TRANSLITERATIONS",
     "RussianTelegram", "RussianInternationalPassport", "RussianDriverLicense"]
 
 
